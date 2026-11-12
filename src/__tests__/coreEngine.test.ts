@@ -118,15 +118,21 @@ describe('OmniScribe: Core Engine & Multimodal NLP Analyzer', () => {
   });
 
   it('correctly categorizes model families, versions, and legacy identifiers', () => {
-    expect(DEFAULT_GEMINI_MODELS[0].name).toBe('gemini-2.5-flash');
+    expect(DEFAULT_GEMINI_MODELS[0].name).toBe('gemini-3.8-flash');
     expect(DEFAULT_GEMINI_MODELS[0].isRecommended).toBe(true);
 
-    expect(getModelFamily('gemini-2.5-flash')).toBe('flash');
-    expect(getModelFamily('gemini-2.5-flash-lite')).toBe('flash-lite');
+    expect(getModelFamily('gemini-3.8-flash')).toBe('flash');
+    expect(getModelFamily('gemini-3.5-flash-lite')).toBe('flash-lite');
     expect(getModelFamily('gemini-2.5-pro')).toBe('pro');
 
     expect(isLegacyOrInvalidModel('gemini-1.5-flash')).toBe(true);
+    expect(isLegacyOrInvalidModel('gemini-3.8-flash')).toBe(false);
     expect(isLegacyOrInvalidModel('gemini-2.5-flash')).toBe(false);
+
+    const v38 = extractVersion('gemini-3.8-flash');
+    expect(v38.major).toBe(3);
+    expect(v38.minor).toBe(8);
+    expect(v38.isFlash).toBe(true);
 
     const vFuture = extractVersion('gemini-100.5-flash');
     expect(vFuture.major).toBe(100);

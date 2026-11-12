@@ -8,10 +8,10 @@ const API_BASE_URL = 'https://generativelanguage.googleapis.com/v1beta';
  */
 export const DEFAULT_GEMINI_MODELS: GeminiModelInfo[] = [
   {
-    name: 'gemini-2.5-flash',
-    displayName: 'Google Gemini 2.5 Flash',
-    version: '2.5',
-    description: 'Production multimodal vision model (High-speed, Free Tier)',
+    name: 'gemini-3.8-flash',
+    displayName: 'Google Gemini 3.8 Flash',
+    version: '3.8',
+    description: 'Latest generation multimodal vision model (Ultra-fast, Free Tier)',
     inputTokenLimit: 1048576,
     outputTokenLimit: 8192,
     supportedGenerationMethods: ['generateContent'],
@@ -19,10 +19,32 @@ export const DEFAULT_GEMINI_MODELS: GeminiModelInfo[] = [
     isRecommended: true
   },
   {
-    name: 'gemini-2.5-flash-lite',
-    displayName: 'Google Gemini 2.5 Flash-Lite',
-    version: '2.5',
+    name: 'gemini-3.6-flash',
+    displayName: 'Google Gemini 3.6 Flash',
+    version: '3.6',
+    description: 'High-speed secondary multimodal engine (Free Tier)',
+    inputTokenLimit: 1048576,
+    outputTokenLimit: 8192,
+    supportedGenerationMethods: ['generateContent'],
+    isMultimodal: true,
+    isRecommended: false
+  },
+  {
+    name: 'gemini-3.5-flash-lite',
+    displayName: 'Google Gemini 3.5 Flash-Lite',
+    version: '3.5',
     description: 'Lightweight high-throughput multimodal engine (Free Tier)',
+    inputTokenLimit: 1048576,
+    outputTokenLimit: 8192,
+    supportedGenerationMethods: ['generateContent'],
+    isMultimodal: true,
+    isRecommended: false
+  },
+  {
+    name: 'gemini-2.5-flash',
+    displayName: 'Google Gemini 2.5 Flash',
+    version: '2.5',
+    description: 'Production multimodal vision model (High-speed, Free Tier)',
     inputTokenLimit: 1048576,
     outputTokenLimit: 8192,
     supportedGenerationMethods: ['generateContent'],
@@ -38,13 +60,7 @@ export function isLegacyOrInvalidModel(name?: string | null): boolean {
   if (!name || typeof name !== 'string') return true;
   const clean = name.trim().toLowerCase();
   if (clean.length === 0) return true;
-  if (
-    clean.includes('1.0') ||
-    clean.includes('1.5') ||
-    clean.includes('3.8') ||
-    clean.includes('3.6') ||
-    clean.includes('3.5-flash-lite')
-  ) {
+  if (clean.includes('1.0') || clean.includes('1.5') || clean.includes('argon') || clean.includes('paid')) {
     return true;
   }
   return false;
