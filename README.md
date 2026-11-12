@@ -1,10 +1,12 @@
-# OmniScribe: Enterprise Multimodal Vision OCR & Unicode Extractor
-### Academic & Research Portfolio Project for the Russian Government Scholarship (Open Doors / Россотрудничество)
-**Specialization:** Computer Science, Artificial Intelligence & Multimodal NLP  
+# OmniScribe: Multimodal Vision OCR and Unicode Extractor
+
+**Academic and Engineering Portfolio Project for the Russian Government Scholarship (Open Doors / Россотрудничество)**  
+**Field of Study:** Computer Science, Artificial Intelligence, and Multimodal Natural Language Processing  
 **Author:** [Adel Mohamed](https://github.com/Adel-dev-2001)  
+**Live Deployment:** [adel-dev-2001.github.io/omniscribe](https://adel-dev-2001.github.io/omniscribe/)  
 **Repository:** [github.com/Adel-dev-2001/omniscribe](https://github.com/Adel-dev-2001/omniscribe)  
 **License:** [MIT License](LICENSE)  
-**Current Release:** v2.4.1 (Multilingual PDF & Smart Cascade Edition)
+**Release:** v2.4.1
 
 ---
 
@@ -12,225 +14,211 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Vite](https://img.shields.io/badge/Vite-6.1-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.4-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
-[![Google Gemini API](https://img.shields.io/badge/Google_Gemini-3.8_Flash_Multimodal-4285F4?logo=google&logoColor=white)](https://ai.google.dev/)
+[![Google Gemini API](https://img.shields.io/badge/Google_Gemini-Multimodal_Vision-4285F4?logo=google&logoColor=white)](https://ai.google.dev/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-emerald.svg)](LICENSE)
 [![Russian Scholarship](https://img.shields.io/badge/Russian_Gov_Scholarship-Portfolio_Project-red.svg)](https://education-in-russia.com/)
 
 ---
 
-## 📑 Table of Contents (Table of Contents / Содержание)
+## Table of Contents
 
-1. [Executive Summary & Academic Motivation](#-executive-summary--academic-motivation)
-2. [Candidate Academic Statement & Learning Journey](#-candidate-academic-statement--learning-journey)
-3. [Russian Academic Abstract (Аннотация)](#-russian-academic-abstract)
-4. [Global Academic Significance & Methodology](#-global-academic-significance--methodology)
-5. [Enterprise SaaS Architecture & Layout](#-enterprise-saas-architecture--layout)
-6. [Autonomous Dynamic Model Discovery Engine](#-autonomous-dynamic-model-discovery-engine)
-7. [Interactive Studio & 1-Click Demo Challenge Files](#-interactive-studio--1-click-demo-challenge-files)
-8. [Benchmark: OmniScribe vs Legacy OCR](#-benchmark-omniscribe-vs-legacy-ocr)
-9. [System Architecture Diagram (Mermaid)](#-system-architecture-diagram)
-10. [In-Place Text Editor & Emoji Inspector](#-in-place-text-editor--emoji-inspector)
-11. [Consolidated Batch Processing & Export Engine](#-consolidated-batch-processing--export-engine)
-12. [Trilingual Localization Matrix](#-trilingual-localization-matrix)
-13. [Local Development & Deployment Guide](#-local-development--deployment-guide)
-14. [Security, Privacy & Zero-Knowledge Architecture](#-security-privacy--zero-knowledge-architecture)
-15. [Live Project Changelog (Спецификация обновлений)](#-live-project-changelog)
+1. [Executive Summary and Research Motivation](#1-executive-summary-and-research-motivation)
+2. [Candidate Academic Note and Learning Context](#2-candidate-academic-note-and-learning-context)
+3. [Russian Academic Abstract (Аннотация)](#3-russian-academic-abstract-аннотация)
+4. [System Architecture and Data Pipeline](#4-system-architecture-and-data-pipeline)
+5. [Forward-Compatible Autonomous Model Discovery](#5-forward-compatible-autonomous-model-discovery)
+6. [Multilingual Typography and High-DPI PDF Compilation](#6-multilingual-typography-and-high-dpi-pdf-compilation)
+7. [Technical Comparison: Multimodal Vision vs. Classical OCR](#7-technical-comparison-multimodal-vision-vs-classical-ocr)
+8. [Project Directory Structure](#8-project-directory-structure)
+9. [Security and Zero-Knowledge Client Architecture](#9-security-and-zero-knowledge-client-architecture)
+10. [Local Development, Testing, and Deployment](#10-local-development-testing-and-deployment)
+11. [Release History](#11-release-history)
 
 ---
 
-## 🎯 Executive Summary & Academic Motivation
+## 1. Executive Summary and Research Motivation
 
-**OmniScribe** is a production-grade, client-side multimodal document intelligence platform designed to eliminate information loss in modern Optical Character Recognition (OCR).
+**OmniScribe** is a client-side multimodal document intelligence application engineered to address character degradation and semantic loss in traditional Optical Character Recognition (OCR) workflows.
 
-While traditional OCR systems (such as Tesseract or EasyOCR) are strictly limited to plain ASCII/Latin text and consistently corrupt Unicode emojis, mathematical notations, and complex tabular structures, OmniScribe leverages **multimodal generative vision neural networks** to achieve:
-1. **100% Unicode Emoji & Symbol Fidelity:** Transcribing complex Zero-Width Joiner (ZWJ) sequences, skin-tone modifiers, flags, and mathematical symbols directly into exact Unicode code points.
-2. **Autonomous Dynamic Model Discovery:** Automatically discovers and negotiates Google's live API capabilities upon client handshake, auto-binding to the newest free vision models (e.g., `gemini-3.8-flash` / `gemini-3.6-flash`) without hardcoded obsolescence.
-3. **Consolidated Multimodal Batch Export:** Ingests batches of up to 20 images simultaneously, compiling results into structured Plain Text (`.txt`), high-resolution vector PDF (`.pdf`), Markdown (`.md`), or machine-readable research datasets (`.json`).
+Conventional OCR engines (such as Tesseract and legacy CNN-based pipelines) rely on isolated glyph segmentation. Consequently, they frequently fail when processing multi-script documents combining Latin, Cyrillic, and right-to-left Arabic scripts, and they systematically strip or corrupt Unicode emojis, Zero-Width Joiner (ZWJ) sequences, mathematical notation, and tabular layouts.
 
-This platform serves as a primary research artifact submitted for the **Russian Government Scholarship in Computer Science & Artificial Intelligence** (Open Doors Olympiad / Россотрудничество).
+OmniScribe replaces brittle glyph segmentation with direct multimodal vision inference over the Google Gemini REST API:
 
----
-
-## 🎓 Candidate Academic Statement & Learning Journey
-> **Academic Note for the Scholarship Evaluation Committee:**  
-> This project represents an applied research milestone created by [**Adel Mohamed**](https://github.com/Adel-dev-2001) during an intensive, self-directed exploration into modern artificial intelligence architectures, client-side neural vision engineering, and real-time multimodal API orchestration.  
-> 
-> As an aspiring graduate researcher applying for the **Russian Government Scholarship in Computer Science & Artificial Intelligence**, this work serves as tangible evidence of continuous self-learning, rapid technical adaptation, and production-level problem solving. Developed iteratively as an educational journey to master AI engineering paradigms, the candidate acknowledges that experimental software architectures undergo continuous refinement. In the spirit of scientific transparency, peer review, and academic humility, constructive feedback from faculty and scholarship evaluators is warmly welcomed to fuel further academic and algorithmic advancements during graduate studies in the Russian Federation.
+1. **Full Unicode and Emoji Preservation:** Captures standard scripts alongside complex emoji sequences, regional indicator flags, skin-tone modifiers, and technical symbols directly into canonical Unicode code points.
+2. **Perpetual Free-Tier Model Discovery:** Dynamically queries Google's live `/v1beta/models` endpoint at runtime, filtering strictly for active Free-Tier multimodal Flash models and automatically binding to the newest available generation without hardcoded model obsolescence.
+3. **Live Failover Cascade:** Monitors HTTP response codes during batch inference and automatically transitions across verified free-tier models if per-minute rate limits (`HTTP 429`) or endpoint deprecations occur.
+4. **High-Fidelity Batch Consolidation:** Processes up to 20 images per batch (via drag-and-drop, file selection, or direct `Ctrl+V` clipboard capture) and compiles results into structured Plain Text (`.txt`), high-DPI multilingual PDF (`.pdf`), Markdown (`.md`), or machine-readable JSON datasets (`.json`).
 
 ---
 
-## 🇷🇺 Russian Academic Abstract (Аннотация)
+## 2. Candidate Academic Note and Learning Context
+
+> **Note to the Scholarship Evaluation Committee:**  
+> This repository was developed by [**Adel Mohamed**](https://github.com/Adel-dev-2001) as part of an ongoing self-directed learning journey into modern software engineering, artificial intelligence integration, and real-time REST API orchestration.  
+>  
+> Building this system served as a practical laboratory for studying how client-side web applications interact with cloud-hosted multimodal vision models, handle asynchronous rate-limiting cascades, and solve cross-lingual Unicode rendering challenges across Arabic, Russian, and English scripts. As an applicant for the **Russian Government Scholarship in Computer Science and Artificial Intelligence**, I present this work as an honest reflection of my current technical progress and hands-on experimentation with AI development tools. Because software engineering is an iterative discipline, certain architectural patterns in this project may still have room for deeper optimization as my theoretical foundation grows. I welcome technical critique and academic mentorship from university faculty in the Russian Federation to advance my skills from applied prototyping to rigorous computer science research.
+
+---
+
+## 3. Russian Academic Abstract (Аннотация)
 
 > **Направление подготовки:** 09.04.01 Информатика и вычислительная техника / Искусственный интеллект и мультимодальный анализ данных  
-> **Кандидат:** Adel Mohamed  
+> **Автор:** Adel Mohamed ([github.com/Adel-dev-2001](https://github.com/Adel-dev-2001))  
 > **Целевые вузы:** НИУ ВШЭ, Университет ИТМО, МФТИ, МГУ им. М.В. Ломоносова  
-> **Тема проекта:** Высокоточная мультимодальная система оптического распознавания документов с динамической адаптацией к новейшим генеративным моделям и сохранением семантики Unicode.
+> **Тема проекта:** Клиентская мультимодальная система оптического распознавания текста и символов Unicode с динамической адаптацией к актуальным моделям машинного зрения.
 
-### Ключевые результаты и научная новизна:
-1. **Алгоритм самоадаптации к моделям (Dynamic Model Discovery):** Полный отказ от жестко заданных идентификаторов моделей в пользу live-интроспекции эндпоинта `models.list`. Алгоритм вычисляет эвристический рейтинг по критериям пропускной способности, оптимизации бесплатного тарифа (flash-сегмент) и старшинства версии (3.x > 2.5 > 2.0).
-2. **Архитектура SaaS-уровня и студия интерактивного анализа:** Включает интерактивную рабочую область (Studio Workspace), конвейер интерактивного предпросмотра, редактор распознанного текста in-place с мгновенным пересчетом метрик и инспектор символов Unicode (`U+XXXX`).
-3. **Многоязычная поддержка и векторный экспорт:** Полная поддержка русского языка, арабской двунаправленной письменности (RTL) и латиницы с возможностью объединения до 20 документов в единый структурированный академический отчет.
-
----
-
-## 🌐 Global Academic Significance & Methodology
-
-> **Research Field:** Computer Science & Artificial Intelligence (Scholarship Portfolio)  
-> **Candidate / Lead Engineer:** Adel Mohamed  
-> **Objective:** Engineer a high-throughput client-side document intelligence architecture that eliminates linguistic degradation in multilingual OCR and preserves 100% of Unicode emojis and mathematical structures.
-
-### Key Architectural Highlights:
-- **Autonomous Vision Handshake:** Dynamically introspects Google's model catalog to bind the most capable multimodal engine at runtime with zero manual reconfiguration.
-- **Sub-Second Transmission Pipeline:** Pre-scales large images locally on HTML5 Canvas, shrinking base64 payloads by 90% and accelerating neural inference.
-- **Trilingual Bidirectional Support:** Verbatim extraction across English, Russian (Cyrillic), and Arabic (RTL) with dynamic layout synchronization.
-- **Direct Multi-Format Export:** 1-click client-side compilation into Vector PDF, Plain Text, Markdown, and JSON datasets without print dialog popups.
+### Основные инженерные решения:
+1. **Динамическое обнаружение моделей (Autonomous Model Discovery):** Отказ от статической привязки к устаревающим версиям API. Модуль интроспекции опрашивает эндпоинт `GET /v1beta/models`, фильтрует бесплатные мультимодальные модели семейства Flash и ранжирует их по номеру поколения (`major.minor`), обеспечивая прямую совместимость с будущими релизами.
+2. **Отказоустойчивый каскад (Live Failover Cascade):** При возникновении минутных ограничений квоты (`HTTP 429`) система автоматически переключает поток задач на резервную модель актуального поколения без прерывания пакетной очереди.
+3. **Многоязычный векторно-растровый экспорт:** Поддержка кириллицы, арабской вязи (RTL) и латиницы с рендерингом документов в PDF высокого разрешения (192 DPI), структурированный текст (`.txt`), Markdown (`.md`) и JSON (`.json`).
 
 ---
 
-## 💎 Compact SaaS Architecture & Layout
-
-OmniScribe v2.3 is structured as a high-density, 3-section executive layout:
-
-```
-┌──────────────────────────────────────────────────────────────────────────────┐
-│  Floating Glass Header: Geometric Logo • Nav Links • API Key Status • Lang  │
-├──────────────────────────────────────────────────────────────────────────────┤
-│  Section 1: Hero & Studio Workspace                                          │
-│  - Live Platform Capabilities Metric Strip (4 high-density indicators)       │
-│  - Multimodal Batch Dropzone (up to 20 images + Ctrl+V clipboard paste)     │
-│  - Concurrency Extraction Queue, Rotate/Enhance Tools & In-Place Modal       │
-├──────────────────────────────────────────────────────────────────────────────┤
-│  Section 2: Core Platform Capabilities (4 High-Impact Architectural Pillars) │
-│  - Dynamic Autonomous Discovery • 100% Emoji Fidelity                        │
-│  - Batch Vector Export (.txt, .pdf, .md, .json) • Zero-Knowledge Privacy     │
-├──────────────────────────────────────────────────────────────────────────────┤
-│  Section 3: Technical Architecture & Security FAQ                            │
-│  - Model auto-negotiation, client-side data isolation, and vector PDF docs   │
-├──────────────────────────────────────────────────────────────────────────────┤
-│  Minimalist SaaS Footer: Single Line Signature (OmniScribe • By Adel Mohamed)│
-└──────────────────────────────────────────────────────────────────────────────┘
-```
-
----
-
-## ⚡ Autonomous Dynamic Model Discovery Engine
-
-Traditional AI wrappers hardcode model strings such as `gemini-1.5-flash`. When cloud providers deprecate older versions, applications fail with `404 NOT_FOUND`.
-
-OmniScribe resolves this using autonomous capability negotiation:
-```
-[User API Key Handshake]
-          │
-          ▼
-   GET /v1beta/models
-          │
-          ▼
-[Filter Multimodal Generative Endpoints]
-          │
-          ▼
-[Regex Parsing: Major.Minor Version & Tier Tags]
-          │
-   ┌──────┴──────────────────────────────┐
-   ▼                                     ▼
-Prefer Flash Tier (Free quota)     Sort Descending by Version (3.x > 2.5 > 2.0)
-   └──────┬──────────────────────────────┘
-          │
-          ▼
-[Autonomous Dynamic Model Binding] ──► Fallback Cascade if Offline
-```
-
----
-
-## 🧪 Interactive Studio & 1-Click Demo Challenge Files
-
-To allow instant evaluation without requiring manual document uploads, the platform embeds three pre-rendered SVG challenge files (`src/data/demoSamples.ts`):
-
-1. **Developer Code & Emojis (`developer_code_emojis_sample.svg`):** Code syntax containing mathematical symbols and a dense stream of emojis (`🚀`, `⚡`, `🔥`, `🧠`, `✨`, `💻`, `🇷🇺`, `🇸🇦`).
-2. **Multilingual Diploma (`multilingual_russian_arabic_sample.svg`):** Academic certificate combining Russian Cyrillic, Modern Standard Arabic, and English typography.
-3. **Structured Financial Table (`structured_table_invoice_sample.svg`):** An invoice table with item categories, currency glyphs (`$`), quantities, and net totals.
-
-Clicking **"Load Demo Challenge Files"** instantly populates the Studio Workspace and enables end-to-end extraction.
-
----
-
-## 📊 Benchmark: OmniScribe vs Legacy OCR
-
-| Capability | Legacy OCR (Tesseract / EasyOCR) | OmniScribe (Gemini Multimodal Vision) |
-| :--- | :--- | :--- |
-| **Unicode & Emoji Fidelity** | ❌ Corrupted, omitted, or replaced with `?` | ✅ **100% Exact Unicode code point capture** |
-| **Markdown Tables & Layout** | ❌ Column collapsing and order scrambling | ✅ **Preserves row/column spatial alignment** |
-| **Multilingual Cyrillic & Arabic** | ⚠️ Frequent segmentation errors | ✅ **Flawless native bi-directional transcription** |
-| **API Drift & Longevity** | ❌ Breaks when model names change | ✅ **Autonomous live catalog auto-negotiation** |
-| **Multi-File Batch Merge** | ❌ Requires custom external scripting | ✅ **1-Click Consolidated PDF / TXT / JSON** |
-| **Client-Side Privacy** | ⚠️ Often requires server installations | ✅ **100% Client-side browser execution** |
-
----
-
-## 🏗️ System Architecture Diagram
+## 4. System Architecture and Data Pipeline
 
 ```mermaid
 flowchart TD
     subgraph Client [Browser Client Layer]
-        UI[SaaS Interface & Studio Workspace]
-        Dropzone[Batch Ingestion Engine: Max 20 Files]
-        Demos[1-Click Demo Samples Loader]
-        Editor[In-Place Real-Time Text Editor]
+        UI[Three-Section SaaS Interface and Studio]
+        Dropzone[Batch Ingestion Queue: Up to 20 Images + Ctrl+V]
+        Canvas[HTML5 Canvas Pre-Scaler and JPEG Optimizer]
+        Editor[In-Place Text Editor and Unicode Inspector]
     end
 
-    subgraph Core [OmniScribe Logic Kernel]
-        Discovery[Dynamic Model Discovery Engine]
-        Queue[FIFO Concurrency Queue Manager]
-        NLP[Unicode Emoji & Metrics Analyzer]
-        Export[Consolidated Multi-Format Export Engine]
+    subgraph Kernel [OmniScribe Core Services]
+        Discovery[Autonomous Model Discovery Engine]
+        Cascade[Real-Time Failover Cascade Controller]
+        Analyzer[Unicode Code Point and Metrics Analyzer]
+        Exporter[Multi-Format Report Compiler]
     end
 
-    subgraph Cloud [Google Cloud AI Infrastructure]
-        Catalog[(Models Catalog /v1beta/models)]
-        Vision[Gemini 3.8 Flash Multimodal API]
+    subgraph Cloud [Google Generative Language API]
+        Catalog[(GET /v1beta/models)]
+        Inference[(POST /v1beta/models/model:generateContent)]
     end
 
     UI --> Dropzone
-    Demos --> Dropzone
-    Dropzone --> Queue
+    Dropzone --> Canvas
     UI --> Discovery
-    Discovery <-->|Introspection| Catalog
-    Queue <-->|Batched Inference| Vision
-    Vision --> NLP
-    NLP --> Editor
-    NLP --> Export
-    Export --> TXT[Consolidated .txt]
-    Export --> PDF[Vector Printable .pdf]
-    Export --> MD[Markdown .md]
-    Export --> JSON[Research Dataset .json]
+    Discovery <-->|Live Catalog Handshake| Catalog
+    Canvas --> Cascade
+    Cascade <-->|Multimodal Vision Payload| Inference
+    Cascade --> Analyzer
+    Analyzer --> Editor
+    Editor --> Exporter
+    Exporter --> PDF[High-DPI Multilingual .pdf]
+    Exporter --> TXT[Structured .txt]
+    Exporter --> MD[Document .md]
+    Exporter --> JSON[Dataset .json]
+```
+
+### Image Pre-Processing and Transmission Optimization
+Before transmitting an image to the vision endpoint, `src/utils/imageProcessor.ts` processes the file locally using an off-screen HTML5 Canvas:
+- Images exceeding `1280px` on their longest edge are proportionally scaled down with high-quality bicubic interpolation (`imageSmoothingQuality = 'high'`).
+- Payloads are encoded into normalized JPEG streams (`0.82` quality), reducing base64 network transmission size by up to 85% while preserving character edge sharpness for sub-second inference.
+
+---
+
+## 5. Forward-Compatible Autonomous Model Discovery
+
+Hardcoding model identifiers in client applications causes software failure whenever cloud providers retire legacy model versions (such as `gemini-1.0` or `gemini-1.5`).
+
+OmniScribe implements a version-agnostic discovery algorithm in [`src/services/geminiService.ts`](src/services/geminiService.ts):
+
+1. **Live Catalog Introspection:** Queries `https://generativelanguage.googleapis.com/v1beta/models?key=<API_KEY>` directly from the client browser.
+2. **Strict Free-Tier Filtering:** Retains only models that support `generateContent` and belong to the Free-Tier multimodal Flash families (`flash` and `flash-lite`). Paid tiers (`pro`, `ultra`, `argon`), specialized non-OCR models (`tts`, `audio`, `imagen`, `veo`, `embedding`, `thinking`), date-pinned snapshots, and retired `1.x` versions are systematically excluded.
+3. **Generation Version Parsing:** Extracts numerical `major` and `minor` version components via regular expression matching (`gemini-(\d+)(?:\.(\d+))?`). Whether the catalog exposes version `2.5`, `3.x`, `4.x`, or any future generation, the comparator ranks the highest generation first.
+4. **Synchronous Batch Failover:** If the primary model encounters a rate limit or parameter mismatch during batch extraction, the engine retries automatically across the next highest discovered free model and updates the active session binding in real time.
+
+---
+
+## 6. Multilingual Typography and High-DPI PDF Compilation
+
+Standard client-side PDF libraries (such as default `jsPDF` text methods) rely on 8-bit WinAnsi/Latin-1 encoding, which corrupts Arabic right-to-left (RTL) contextual ligatures, Russian Cyrillic characters, and multi-byte Unicode emojis.
+
+To solve this without server-side dependencies, [`src/services/exportService.ts`](src/services/exportService.ts) implements a hybrid DOM-to-Canvas-to-PDF pipeline:
+- Constructs an isolated, print-styled A4 layout container rendered through the browser's native HarfBuzz/DirectWrite text-shaping engine (`Cairo`, `Inter`, and native color emoji fonts).
+- Automatically detects Arabic script ranges (`\u0600-\u06FF`) per paragraph to apply contextual `dir="rtl"` alignment alongside `dir="ltr"` blocks for Russian and English.
+- Rasterizes pages at `2x` device pixel ratio (`192 DPI`) via `html2canvas` and slices multi-page documents across standard A4 dimensions (`210mm x 297mm`) with protective page-break padding so text lines are never clipped mid-character.
+
+---
+
+## 7. Technical Comparison: Multimodal Vision vs. Classical OCR
+
+| Evaluation Criterion | Classical OCR (Tesseract / Legacy Pipelines) | OmniScribe (Multimodal Vision Architecture) |
+| :--- | :--- | :--- |
+| **Unicode Emojis and Symbols** | Omitted or misclassified as punctuation noise | Full preservation of Unicode code points and ZWJ sequences |
+| **Multilingual Mixed Scripts** | Requires manual language pack configuration | Native recognition of English, Russian, and Arabic in a single pass |
+| **Tabular and Code Layouts** | Loses column alignment and indentation | Preserves spatial structure, Markdown tables, and code blocks |
+| **Model Lifecycle Longevity** | Static weights or hardcoded API model names | Dynamic runtime discovery of newest Free-Tier Flash models |
+| **Batch Report Compilation** | Requires external post-processing scripts | Built-in client-side export to PDF, TXT, Markdown, and JSON |
+| **Data Privacy Boundary** | Often requires backend server file uploads | Zero-knowledge browser execution; direct Google API TLS connection |
+
+---
+
+## 8. Project Directory Structure
+
+```text
+omniscribe/
+├── .github/
+│   └── workflows/
+│       └── deploy.yml             # Automated CI/CD pipeline for GitHub Pages deployment
+├── public/
+│   └── favicon.svg                # Geometric optical aperture vector icon
+├── src/
+│   ├── __tests__/
+│   │   └── coreEngine.test.ts     # Automated unit tests for NLP metrics, exports, and model discovery
+│   ├── components/
+│   │   ├── BatchControls.tsx      # Queue metrics bar and batch execution controls
+│   │   ├── BatchDropzone.tsx      # Drag-and-drop and clipboard ingestion component (max 20 files)
+│   │   ├── ExportModal.tsx        # Multi-format compilation configuration dialog
+│   │   ├── Header.tsx             # Floating navigation bar, live model pill, and language switcher
+│   │   ├── ImagePreviewList.tsx   # Queue cards with optical laser scanning overlay
+│   │   ├── Logo.tsx               # Scalable SVG brand mark component
+│   │   ├── ModelSelectorModal.tsx # API key management and live Google catalog scanner
+│   │   ├── ResultModal.tsx        # Inspection dialog, in-place editor, and Unicode code-point inspector
+│   │   ├── SaaSFaq.tsx            # Technical architecture and privacy accordion
+│   │   ├── SaaSFeatures.tsx       # Core architectural capabilities grid
+│   │   ├── SaaSFooter.tsx         # Minimal single-line attribution footer
+│   │   └── SaaSHero.tsx           # Hero section and quantitative performance indicators
+│   ├── i18n/
+│   │   └── translations.ts        # Complete trilingual localization dictionaries (EN, RU, AR)
+│   ├── services/
+│   │   ├── exportService.ts       # Client-side PDF, TXT, Markdown, and JSON compilation service
+│   │   └── geminiService.ts       # Google Gemini REST client, model discovery, and failover engine
+│   ├── types/
+│   │   └── index.ts               # Strict TypeScript interfaces and data contracts
+│   ├── utils/
+│   │   └── imageProcessor.ts      # HTML5 Canvas image downscaling and compression utility
+│   ├── App.tsx                    # Root application state, batch queue controller, and keyboard listeners
+│   ├── index.css                  # Tailwind CSS layers, custom scrollbars, and laser scan keyframes
+│   └── main.tsx                   # React 18 DOM entry point
+├── index.html                     # SEO meta tags, OpenGraph cards, and Schema.org JSON-LD graph
+├── LICENSE                        # MIT Open-Source License
+├── package.json                   # Project dependencies and build scripts
+├── tailwind.config.js             # Tailwind CSS theme and typography configuration
+├── tsconfig.json                  # Strict TypeScript compiler configuration
+└── vite.config.ts                 # Vite bundler configuration with relative base paths
 ```
 
 ---
 
-## 📝 In-Place Text Editor & Emoji Inspector
+## 9. Security and Zero-Knowledge Client Architecture
 
-1. **In-Place OCR Editor:** Users can click **"Edit Text"** within the inspection modal to refine any transcription or add notes. Metrics (character count, word count, emoji count) recalculate dynamically in real time.
-2. **Emoji Inspector Tool:** Clicking any extracted emoji chip automatically copies the character and displays its official Unicode code point (e.g., `U+1F680` for 🚀).
-
----
-
-## 🌐 Trilingual Localization Matrix
-
-| Language | Code | Script Alignment | Verification Standard |
-| :--- | :---: | :---: | :--- |
-| **English (Master)** | `en` | LTR | Professional academic software engineering register. |
-| **Русский (Russian)** | `ru` | LTR | Aligned with Russian university standards (ВШЭ, МФТИ, МГУ). |
-| **Arabic** | `ar` | RTL | Fluent Modern Standard Arabic with full bidirectional CSS alignment. |
+1. **Direct Browser-to-Google Communication:** OmniScribe operates entirely as a client-side Single Page Application (SPA). All API requests are transmitted directly from the user's browser over HTTPS to `generativelanguage.googleapis.com`.
+2. **Local Credential Isolation:** The user's Google Gemini API key is stored exclusively in the browser's local storage (`localStorage`) and can be wiped with a single click. No backend database, proxy server, or telemetry service ever receives the key.
+3. **Ephemeral Document Processing:** Uploaded images are processed in volatile browser memory (`FileReader` / `HTML5 Canvas`) and are cleared immediately upon queue reset or tab closure.
 
 ---
 
-## 💻 Local Development & Deployment Guide
+## 10. Local Development, Testing, and Deployment
 
 ### Prerequisites
-- **Node.js:** v18.0.0+ (Tested on Node v24.18.0)
-- **Package Manager:** `npm` (v9+) or `pnpm`
-- **Google Gemini API Key:** Free tier from [Google AI Studio](https://aistudio.google.com/)
+- **Node.js:** v18.0.0 or higher (verified on Node.js v20 and v24)
+- **Package Manager:** `npm` (v9+)
+- **API Credential:** Free-tier Google Gemini API key from [Google AI Studio](https://aistudio.google.com/)
 
-### Quick Start
+### Installation and Commands
 ```bash
 # 1. Clone the repository
 git clone https://github.com/Adel-dev-2001/omniscribe.git
@@ -239,142 +227,40 @@ cd omniscribe
 # 2. Install dependencies
 npm install
 
-# 3. Start development server
-npm run dev
-# Running locally at http://localhost:5173
+# 3. Run automated unit test suite (Vitest)
+npm test
 
-# 4. Production build
+# 4. Launch local development server
+npm run dev
+
+# 5. Compile production bundle
 npm run build
 ```
 
 ---
 
-## 🔒 Security, Privacy & Zero-Knowledge Architecture
+## 11. Release History
 
-1. **Zero Intermediate Servers:** OmniScribe connects directly from the user's browser client to Google's official endpoints (`generativelanguage.googleapis.com`).
-2. **LocalStorage Isolation:** API credentials remain strictly on the client device. They are never transmitted to analytics or third-party servers.
-3. **Ephemeral Image Ingestion:** Uploaded images exist only as in-memory Object URLs and base64 strings, discarded upon tab close or queue reset.
+### v2.4.1 (Current Release)
+- Refined the autonomous model discovery filter (`selectNewestFreeModels`) to strictly target active Free-Tier multimodal Flash families (`flash` and `flash-lite`), excluding paid tiers, non-vision endpoints, and date-pinned preview snapshots.
+- Added synchronous React ref state tracking during batch extraction so live model failover persists immediately across all queued images.
+- Implemented high-DPI DOM-to-Canvas-to-PDF rendering (`192 DPI`) with full right-to-left Arabic ligature shaping, Cyrillic support, and native color emoji preservation.
+- Added optical laser scanner animation overlay on active image cards during vision inference.
+- Enriched `index.html` with Schema.org JSON-LD (`SoftwareApplication` and `WebSite` graphs), OpenGraph metadata, and relative asset paths for GitHub Pages deployment.
+
+### v2.3.0
+- Streamlined the user interface into a focused three-section layout (Hero and Studio Workspace, Core Capabilities, and Technical FAQ) with full dark/light mode persistence.
+- Added global `Ctrl+V` clipboard image capture, modal background scroll locking, and `Escape` key dismissal.
+- Integrated non-intrusive quota alert notifications and one-click API key management.
+
+### v2.0.0
+- Added in-place OCR text editing with real-time recalculation of character, word, line, and emoji statistics.
+- Added interactive Unicode emoji chip inspector displaying hexadecimal code points (`U+XXXX`).
+- Completed trilingual localization across English (`en`), Russian (`ru`), and Arabic (`ar`) with automatic RTL/LTR layout switching.
+
+### v1.0.0
+- Initial architecture featuring batch image ingestion (up to 20 files), dynamic Google Gemini API discovery, and consolidated multi-format export (`.txt`, `.pdf`, `.md`, `.json`).
 
 ---
 
-## 📝 Live Project Changelog
-
-### [v2.4.0] — Modal UX Overhaul: Body Scroll Lock, Escape Key Dismissal & Backdrop Isolation
-- **Background Scroll Locking:** Integrated automated viewport scroll locking (`document.body.style.overflow = 'hidden'`) upon opening any modal (`ResultModal`, `ModelSelectorModal`, `ExportModal`), eliminating background page scrolling completely.
-- **Escape Key Keyboard Dismissal:** Added global `Escape` key event listeners allowing instantaneous closing of modal dialogs via standard desktop keyboard interaction.
-- **Click-Outside Backdrop Dismissal & `overscroll-contain`:** Configured backdrop click dismissal with event propagation guards (`e.stopPropagation()`) and CSS `overscroll-behavior: contain` to prevent scroll chaining across all viewports.
-
-### [v2.3.9] — Non-Intrusive Alert Toast, Inline Key Clear, Dynamic Catalog Fallback & Audio Deprecation
-- **Floating Bottom Notification Toast:** Replaced the intrusive top banner with a sleek, non-blocking glassmorphic toast notification positioned at the screen edge, featuring an amber accent glow, concise quota details, and an instant 1-click key update action.
-- **Ergonomic Inline API Key Clear Button:** Positioned the dedicated Clear action directly alongside the key input field in a unified horizontal control group, with an intuitive trash icon, responsive hover states, and disabled-state styling.
-- **Dynamic Live Model Discovery & Seamless Cascade:** Fully integrated dynamic discovery directly from Google's live catalog on key entry. During inference, if the primary model (`gemini-3.8-flash`) hits rate limits or latency thresholds, the engine seamlessly switches across candidate models (`gemini-3.5-flash-lite`, `gemini-2.5-flash`) without interrupting batch execution.
-- **Audio Feature Deprecation:** Fully removed speech synthesis controls and player buttons from `ResultModal.tsx`, streamlining the inspection workflow to focus strictly on multimodal visual OCR and Unicode extraction.
-
-### [v2.3.8] — High-Throughput Gemini 3.8 Flash, Cascade Fallback, 1-Click Clear Key & Compact Controls
-- **Gemini 3.8 Flash Frontier Integration:** Added primary support for Google's latest multimodal vision engine (`gemini-3.8-flash`) configured with `thinkingLevel: 'LOW'` to guarantee sub-second OCR extraction without deep-thinking delays.
-- **Fail-Safe Cascade Fallback:** Built an automated cascade across active Google multimodal models (`gemini-3.8-flash`, `gemini-3.5-flash-lite`, `gemini-2.5-flash`), eliminating deprecated 404 models (`gemini-1.5-flash`) and enforcing a fast 20s timeout to prevent infinite loading.
-- **1-Click API Key Clear Button:** Added dedicated key wipe functionality (`Clear`) with both an inline dismiss icon and a header action button in `ModelSelectorModal.tsx`.
-- **Concise Action Button Labels:** Shortened queue and batch action buttons in `BatchControls.tsx` for optimal mobile/desktop responsiveness across English, Russian, and Arabic (`Clear` | `Export` | `Extract` | `Stop`).
-- **Zero Arabic Remnants in Code & Markdown:** Replaced all Arabic comments, headings, and table cells with 100% English, preserving localized strings exclusively within `src/i18n/translations.ts`.
-
-### [v2.3.7] — Metric Cards Animation, Quota Alert Banner, Zero-Latency OCR & Strict English Codebase
-- **Animated Hero Metric Cards:** Enhanced the 4 quantitative metric cards in `SaaSHero.tsx` with glassmorphic cards, colored ambient hover glows, icon scaling/rotation micro-interactions, and smooth lift effects.
-- **Removed Image Rotation Tooling:** Cleaned up image preview and processing pipelines by completely eliminating the manual rotation feature.
-- **Blazing Fast OCR Engine:** Scaled images automatically to a 1280px lightweight high-fidelity JPEG canvas representation (reducing payload size down to ~90KB), disabled reasoning latency via `thinkingBudget: 0`, and utilized greedy decoding for sub-second recognition.
-- **Instant API Quota Alert:** Configured immediate detection of HTTP 429 and `RESOURCE_EXHAUSTED` responses, presenting a floating alert banner that explains the quota state and offers 1-click access to change keys.
-- **Strict English-Only Code & Documentation:** Ensured all source comments, component notes, and documentation are strictly in English with all localized UI strings cleanly centralized in `translations.ts`.
-
-### [v2.3.6] — Direct Downloads, Ultra-Fast Vision Pipeline & Modern Glassmorphic Capabilities
-- **Removed Grayscale Filter:** Eliminated the manual grayscale button and contrast modifier from the preview interface for a cleaner, unified image card workflow.
-- **Direct 1-Click File Downloads (Zero Print Dialogs):** Replaced `window.print()` popups with direct client-side binary PDF generation via `jsPDF`. All exports (PDF, TXT, Markdown, JSON) now download immediately to the user's downloads folder.
-- **High-Speed Vision Optimization:** Integrated HTML5 Canvas pre-scaler (`optimizeImageForOcr`) to normalize oversized images (>1920px), cutting transmission payload by 85% and accelerating inference. Set temperature to `0.0` for deterministic greedy decoding.
-- **Modern Glassmorphic Capabilities Section:** Completely overhauled `SaaSFeatures.tsx` with glassmorphism, animated ambient gradient orbs, glowing card borders on hover, micro-interactions, and concise professional copy across English, Russian, and Arabic.
-
-### [v2.3.5] — Real Extraction on the Live-Discovered Model Only
-- **Removed hidden fallbacks to older models:** Extraction now runs strictly on the model discovered live from Google for the user's key (e.g. `gemini-3.8-flash`). Errors come from that exact model, never from a silently substituted older one.
-- **Timeout raised from 15s to 120s:** Newer reasoning-capable models need more time on dense images; the old 15s limit aborted valid requests.
-- **Transient-error retry:** Up to 3 attempts with backoff on HTTP 429 / 500 / 503.
-- **Correct response parsing:** Joins all text parts and skips internal `thought` parts returned by newer models.
-- **Smarter discovery filter:** Excludes image-generation, live/audio, lite, computer-use and robotics variants so the main vision model is chosen.
-- **No simulated output:** Without an API key the app no longer returns demo text; it asks the user to connect a real key.
-
-### [v2.3.4] — Authentic Live Google Model Discovery & Conditional Model Binding
-- **Strict Conditional Model Display:** Eliminated premature active model card rendering when no API key is entered. The settings modal now displays an informative "Awaiting API Key" empty state until the user enters their key and runs a verified handshake.
-- **Genuine Live Google API Introspection:** `discoverLatestGeminiModels(apiKey)` queries Google's live catalog (`/v1beta/models?key=...`) directly. If the key is invalid or unauthorized, Google's real error message is surfaced immediately with zero simulated fallbacks.
-- **Dynamic Single-Model Binding:** Automatically selects the latest verified free vision model returned directly by Google (e.g., `gemini-2.5-flash`), with verified live indicators.
-- **Sanitized Cache & Branding:** Purged obsolete cache entries (`omniscribe_settings_v4`), ensured strictly clean brand references to **OmniScribe**, and unified the header status pill to dynamically display the active connected model.
-
-### [v2.4.1] — Multilingual & Unicode High-Fidelity PDF Export Engine (Arabic RTL, Cyrillic & Emoji Rendering)
-- **High-Fidelity DOM-to-Canvas-to-PDF Rasterization:** Overhauled client-side PDF compilation using `html2canvas` (scale: 2 for 192 DPI retina print sharpness) coupled with `jsPDF` A4 multi-page slicing (`210mm x 297mm`).
-- **Native Right-to-Left (RTL) Arabic & Cyrillic Typography:** Solved the 8-bit Latin-1 ASCII font limitation in standard `jsPDF` by utilizing the browser's native text shaping engine (`Cairo`, `Inter`, `Segoe UI`), ensuring 100% cursive ligatures for Arabic and crisp glyphs for Cyrillic.
-- **Zero-Mojibake Emoji Preservation:** Rendered emojis with native color and font glyphs, completely preventing corrupted symbol escapes, raw numbers, or question marks in both single-file and consolidated batch PDF exports.
-- **Direct 1-Click Asynchronous Downloads:** Retained instant file download without print popups, complemented by asynchronous loading feedback and disabled states.
-
-### [v2.4.0] — Dynamic Cascade Failover, Glassmorphic Quota Alert & Modal Scroll Locking
-- **Intelligent Model Cascade:** Integrated live multi-model discovery with automatic fallback cascade (`gemini-3.8-flash` -> `gemini-3.5-flash-lite` -> `gemini-2.5-flash`) upon encountering HTTP 429 quota limits.
-- **Floating Quota Alert Toast:** Redesigned the quota limit warning into a sleek, non-intrusive floating glassmorphic toast at `bottom-6 end-6`.
-- **Body Scroll Locking & Global Escape Dismissal:** Locked background page scrolling during modal view and enabled instant keyboard dismissal via `Escape` across all modals.
-- **In-line API Key Clear Action:** Positioned a one-click clear button directly adjacent to the API key input for rapid key reset.
-- **Purged Speech Synthesis:** Removed audio narration dependencies and components for a leaner, faster client bundle.
-
-### [v2.3.3] — Multimodal Payload Fix (inlineData), Rebalanced Controls Bar & Focused Single-Model UI
-- **Fixed Multimodal Vision Payload (`inlineData`):** Corrected Gemini REST API payload serialization from snake_case to camelCase `inlineData: { mimeType, data }`, eliminating HTTP 400 rejection and ensuring immediate, sub-second OCR extraction.
-- **Rebalanced Batch Controls Bar:** Redesigned `BatchControls.tsx` into a structured, dual-tier responsive layout with a top 4-metric grid and a bottom single-line action strip, permanently resolving awkward button wrapping.
-- **Strict Single-Model UI:** Streamlined the settings modal to display strictly the single latest verified model (`gemini-2.5-flash`), removing all unnecessary model lists for zero confusion.
-- **Request Timeout & Resiliency:** Integrated 15-second AbortController on vision requests to prevent infinite loading states.
-
-### [v2.3.2] — Streamlined Minimalist Header & Hero (Consolidated Model UI)
-- **Removed Redundant Model Badges from Public UI:** Eliminated the standalone active model pill from the top navbar and the model badge pill from the hero banner for a sleeker, distraction-free appearance.
-- **Consolidated Model Architecture Inside Settings Modal:** The active vision engine (`gemini-3.8-flash`) and catalog selection are now housed exclusively within the API Key Settings modal, keeping the main interface pristine while maintaining full technical flexibility.
-
-### [v2.3.1] — Frontier Upgrade to Gemini 3.8 Flash, Instant Auto-Binding & Simplified Phrasing
-- **Google Frontier Flagship Upgrade (`gemini-3.8-flash`):** Integrated Google's latest multimodal frontier workhorse model featuring a 1M token context window, 65k output tokens, and ultra-fast visual OCR reasoning.
-- **Instant Model Auto-Binding:** When an API key is entered or pasted, the engine immediately performs real-time API introspection, selects Google's newest multimodal model (`gemini-3.8-flash`), and marks it active without requiring manual button clicks.
-- **Prepopulated Standard Catalog:** Modal now initializes with compatible models list (`gemini-3.8-flash`, `gemini-2.5-flash`, `gemini-2.0-flash`, `gemini-1.5-flash`, `gemini-1.5-pro`) rather than showing an empty state before scanning.
-- **Removed Redundant Extraction Behavior UI:** Cleaned the settings modal by removing extraction behavior checkboxes (spatial layout, emojis) and sampling temperature slider. Peak configurations are enforced automatically in the engine for maximum accuracy.
-- **Simplified Branding Phrasing:** Replaced exaggerated "100-Year" references with professional, academic terminology ("Smart Model Discovery" / "Динамическое обнаружение моделей") across all trilingual dictionaries and document sections.
-
-### [v2.3.0] — Minimalist 3-Section Layout, Geometric Optical Logo & Strict OmniScribe Branding
-- **Strict Brand Identity:** Standardized brand nomenclature to strictly **OmniScribe** across all UI elements, document titles, metadata, and removed all long em-dashes (`—`).
-- **Modern Geometric Optical Logo:** Redesigned `Logo.tsx` and `public/favicon.svg` with an interlocking geometric optical aperture lettermark combining visual capture and neural prism aesthetics.
-- **Removed Demo Empty-State Clutter:** Eliminated the placeholder empty-state box (`Studio Workspace is Empty / Load Demo Challenge Files`) so the workspace immediately presents the clean, functional batch dropzone.
-- **3-Section High-Impact Architecture:** Consolidated the entire landing page into 3 focused sections:
-  1. *Hero & Studio Workspace:* Dynamic metrics strip, batch dropzone (up to 20 images), and real-time processing queue.
-  2. *Core Capabilities:* 4 focused architectural pillars (Dynamic Discovery, 100% Emoji Fidelity, Batch Export, Zero-Knowledge Privacy).
-  3. *Technical FAQ:* 3 essential technical answers on security, PDF generation, and dynamic negotiation.
-- **Minimal Single-Line Footer:** Refined the footer to a single sleek bar: `OmniScribe • © 2026 All rights reserved.` on the left and `By Adel Mohamed` on the right.
-- **Letter-Only Language Switcher:** Floating glass dropdown displaying clean ISO language codes (`EN`, `RU`, `AR`) with dynamic RTL support.
-- **Compact Floating Dropdown:** Converted the 3-button pill into a professional, space-efficient floating glass dropdown with a Globe icon and Chevron indicator.
-- **Letter-Only Abbreviations:** Styled strictly with two-letter ISO language codes (`EN`, `RU`, `AR`) with active selection checkmarks and click-outside dismissal.
-
-### [v2.2.0] — Streamlined Minimalist Header & UI De-cluttering
-- **Single-Row Minimalist Navbar:** Merged header into a clean, 64px floating glass navbar, eliminating the bulky two-tier sub-bar.
-- **De-cluttered UI:** Removed all overt scholarship badges and promotional ribbons from the client-facing UI for a clean, authentic, commercial SaaS feel.
-- **Unified Action Controls:** Replaced cluttered inputs with compact, high-contrast action pills for active model status, API key status, and trilingual switching.
-- **Removed Interstitial Banners:** Cleaned the transition between the Hero and Studio Workspace for seamless vertical flow.
-
-### [v2.1.0] — Minimalist SaaS Footer & Author Signature Update
-- **Footer Streamlining:** Removed verbose bottom academic banner and multi-column sitemap, replacing it with a clean, high-contrast single-line SaaS signature.
-- **Logo & Version Badge Polish:** Removed bottom logo icon and production tag for an ultra-clean footer layout.
-- **Author Attribution:** Updated copyright and production signature strictly to: `By Adel Mohamed`.
-- **Pre-Processing Canvas Pipeline:** Integrated client-side 90° image rotation and contrast enhancement filters in `src/utils/imageProcessor.ts`.
-- **Automated Test Suite:** Configured and validated 100% passing Vitest test suite (`npm test`) covering Unicode emoji extraction, metrics analysis, and multi-format exports.
-
-### [v2.0.0] — Enterprise SaaS Architecture Edition
-- **SaaS UI Redesign:** Implemented a full enterprise-grade SaaS design system with hero banner, floating glass navbar, live capability metrics, and multi-column footer.
-- **Interactive Studio Workspace:** Built a dedicated document intelligence workspace with smooth scrolling anchor `#studio`.
-- **Preloaded Demo Challenge Files:** Added 1-click loading of 3 real-world challenge documents (`developer_code_emojis_sample.svg`, `multilingual_russian_arabic_sample.svg`, `structured_table_invoice_sample.svg`).
-- **In-Place Text Editor:** Added live editing capabilities in `ResultModal.tsx` with dynamic recalculation of words, characters, and emojis.
-- **Audio Speech Synthesis:** Integrated native Web Speech API (`SpeechService`) to narrate extracted content in Russian, Arabic, and English.
-- **Interactive Emoji Inspector:** Added clickable emoji stream chips that copy Unicode hex values (`U+XXXX`).
-- **Benchmark & Comparison Grid:** Added technical evaluation table comparing multimodal vision against legacy OCR (Tesseract).
-- **Architecture & FAQ Sections:** Added 3-phase pipeline walkthrough and technical accordion.
-- **Model Resolution Upgrade:** Prioritized latest multimodal releases (`gemini-2.5-flash` / `gemini-2.0-flash`) as the default active engine with live status pill.
-
-### [v1.0.0] — Core Engine & Scholarship Initial Release
-- Implemented batch image ingestion up to 20 images with drag-and-drop.
-- Built autonomous 100-year Dynamic Gemini Model Discovery engine.
-- Built consolidated multi-format batch merge export (`.txt`, `.pdf`, `.md`, `.json`).
-- Added trilingual localization (English, Russian, Arabic) with dynamic RTL layout switching.
-- Designed custom vector SVG logo and favicon.
-- Added full dark mode and light mode with local persistence.
+**Author:** [Adel Mohamed](https://github.com/Adel-dev-2001) • Released under the [MIT License](LICENSE).

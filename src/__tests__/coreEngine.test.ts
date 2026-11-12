@@ -1,19 +1,29 @@
 import { describe, it, expect } from 'vitest';
-import { analyzeExtractedText } from '../services/geminiService';
-import { getMockExtractionForImage } from '../services/mockOcrService';
-import { generateMergedPlainText, generateMergedMarkdown, generateMergedJSON } from '../services/exportService';
+import {
+  analyzeExtractedText,
+  getModelFamily,
+  extractVersion,
+  selectNewestFreeModels,
+  isLegacyOrInvalidModel,
+  DEFAULT_GEMINI_MODELS
+} from '../services/geminiService';
+import {
+  generateMergedPlainText,
+  generateMergedMarkdown,
+  generateMergedJSON
+} from '../services/exportService';
 import { ProcessedImage, ExportConfig } from '../types';
 
 describe('OmniScribe: Core Engine & Multimodal NLP Analyzer', () => {
   it('correctly calculates character, word, line, and strict Unicode emoji counts', () => {
-    const sample = 'Hello World! 🚀 Привет мир! 🇷🇺 مرحباً بالعالم 🌟\nSecond line with code: const x = 42; 💻⚡';
+    const sample =
+      'Hello World! 🚀 Привет мир! 🇷🇺 Welcome 🌟\nSecond line with code: const x = 42; 💻⚡';
     const stats = analyzeExtractedText(sample, 250);
 
     expect(stats.charCount).toBe(sample.length);
     expect(stats.lineCount).toBe(2);
     expect(stats.processingTimeMs).toBe(250);
     expect(stats.wordCount).toBeGreaterThan(10);
-    // Should detect emojis: 🚀, 🇷🇺, 🌟, 💻, ⚡
     expect(stats.emojiCount).toBeGreaterThanOrEqual(5);
   });
 
@@ -25,14 +35,40 @@ describe('OmniScribe: Core Engine & Multimodal NLP Analyzer', () => {
     expect(stats.lineCount).toBe(0);
   });
 
-  it('delivers correct mock extraction data for challenge samples', () => {
-    const resCode = getMockExtractionForImage('developer_code_emojis_sample.svg');
-    expect(resCode.text).toContain('extractSemanticGlyphs');
-    expect(resCode.text).toContain('🚀');
+  it('selects strictly the newest Free-Tier Flash models and filters out legacy, paid, and specialized endpoints', () => {
+    const rawCatalog = [
+      { name: 'models/gemini-1.5-flash', supportedGenerationMethods: ['generateContent'] },
+      { name: 'models/gemini-2.0-flash', supportedGenerationMethods: ['generateContent'] },
+      { name: 'models/gemini-2.5-flash-preview-05-20', supportedGenerationMethods: ['generateContent'] },
+      { name: 'models/gemini-2.5-flash-preview-tts', supportedGenerationMethods: ['generateContent'] },
+      { name: 'models/gemini-2.5-pro', supportedGenerationMethods: ['generateContent'] },
+      { name: 'models/gemini-4-argon-paid', supportedGenerationMethods: ['generateContent'] },
+      { name: 'models/gemini-2.5-flash', supportedGenerationMethods: ['generateContent'] },
+      { name: 'models/gemini-2.5-flash-lite', supportedGenerationMethods: ['generateContent'] }
+    ];
 
-    const resMulti = getMockExtractionForImage('multilingual_russian_arabic_sample.svg');
-    expect(resMulti.text).toContain('РОССИЙСКАЯ АКАДЕМИЧЕСКАЯ СТИПЕНДИЯ');
-    expect(resMulti.text).toContain('منحة الحكومة الروسية');
+    const result = selectNewestFreeModels(rawCatalog);
+    expect(result.recommendedModel).toBe('gemini-2.5-flash');
+    expect(result.models.map((m) => m.name)).toContain('gemini-2.5-flash');
+    expect(result.models.map((m) => m.name)).toContain('gemini-2.5-flash-lite');
+    expect(result.models.map((m) => m.name)).not.toContain('gemini-1.5-flash');
+    expect(result.models.map((m) => m.name)).not.toContain('gemini-2.5-pro');
+    expect(result.models.map((m) => m.name)).not.toContain('gemini-4-argon-paid');
+    expect(result.models.map((m) => m.name)).not.toContain('gemini-2.5-flash-preview-05-20');
+  });
+
+  it('scales forward to future Gemini generations (e.g. v4.0, v12.5, v100.0) without code changes', () => {
+    const futureCatalog = [
+      { name: 'models/gemini-2.5-flash', supportedGenerationMethods: ['generateContent'] },
+      { name: 'models/gemini-12.5-flash', supportedGenerationMethods: ['generateContent'] },
+      { name: 'models/gemini-42.0-flash-lite', supportedGenerationMethods: ['generateContent'] },
+      { name: 'models/gemini-42.0-flash', supportedGenerationMethods: ['generateContent'] }
+    ];
+
+    const result = selectNewestFreeModels(futureCatalog);
+    expect(result.recommendedModel).toBe('gemini-42.0-flash');
+    expect(result.models[0].name).toBe('gemini-42.0-flash');
+    expect(result.models[1].name).toBe('gemini-42.0-flash-lite');
   });
 
   it('generates structured consolidated Plain Text, Markdown, and JSON datasets', () => {
@@ -62,7 +98,7 @@ describe('OmniScribe: Core Engine & Multimodal NLP Analyzer', () => {
       includeMetadata: true,
       includeStats: true,
       documentTitle: 'Test Report',
-      authorName: 'Adel',
+      authorName: 'Adel Mohamed',
       exportScope: 'all'
     };
 
@@ -81,29 +117,20 @@ describe('OmniScribe: Core Engine & Multimodal NLP Analyzer', () => {
     expect(parsed.items.length).toBe(1);
   });
 
-  it('validates Google Gemini 3.8 Flash as top flagship default model', async () => {
-    const { DEFAULT_GEMINI_MODELS } = await import('../services/geminiService');
-    expect(DEFAULT_GEMINI_MODELS.length).toBeGreaterThan(0);
-    expect(DEFAULT_GEMINI_MODELS[0].name).toBe('gemini-3.8-flash');
+  it('correctly categorizes model families, versions, and legacy identifiers', () => {
+    expect(DEFAULT_GEMINI_MODELS[0].name).toBe('gemini-2.5-flash');
     expect(DEFAULT_GEMINI_MODELS[0].isRecommended).toBe(true);
-  });
 
-  it('correctly categorizes model family and parses future-proof version numbers', async () => {
-    const { getModelFamily, extractVersion } = await import('../services/geminiService');
-    
-    expect(getModelFamily('gemini-3.8-flash')).toBe('flash');
-    expect(getModelFamily('gemini-3.5-flash-lite')).toBe('flash-lite');
-    expect(getModelFamily('gemini-3.0-pro')).toBe('pro');
+    expect(getModelFamily('gemini-2.5-flash')).toBe('flash');
+    expect(getModelFamily('gemini-2.5-flash-lite')).toBe('flash-lite');
+    expect(getModelFamily('gemini-2.5-pro')).toBe('pro');
 
-    const v38 = extractVersion('gemini-3.8-flash');
-    expect(v38.major).toBe(3);
-    expect(v38.minor).toBe(8);
-    expect(v38.isFlash).toBe(true);
+    expect(isLegacyOrInvalidModel('gemini-1.5-flash')).toBe(true);
+    expect(isLegacyOrInvalidModel('gemini-2.5-flash')).toBe(false);
 
-    const vFuture = extractVersion('gemini-4.5-flash');
-    expect(vFuture.major).toBe(4);
+    const vFuture = extractVersion('gemini-100.5-flash');
+    expect(vFuture.major).toBe(100);
     expect(vFuture.minor).toBe(5);
     expect(vFuture.isFlash).toBe(true);
   });
 });
-

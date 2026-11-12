@@ -17,30 +17,32 @@ import {
   discoverLatestGeminiModels,
   extractTextAndEmojisFromImage,
   analyzeExtractedText,
+  isLegacyOrInvalidModel,
   DEFAULT_GEMINI_MODELS
 } from './services/geminiService';
 import { ClipboardPaste, AlertTriangle, X } from 'lucide-react';
 
-const STORAGE_KEY_SETTINGS = 'omniscribe_settings_v5';
+const STORAGE_KEY_SETTINGS = 'omniscribe_settings_v6';
 
 export const App: React.FC = () => {
   const [settings, setSettings] = useState<AppSettings>(() => {
-    // Clear obsolete storage keys
+    const savedV6 = localStorage.getItem(STORAGE_KEY_SETTINGS);
+    const savedV5 = localStorage.getItem('omniscribe_settings_v5');
     localStorage.removeItem('omniscribe_settings_v3');
     localStorage.removeItem('omniscribe_settings_v4');
-    
-    const saved = localStorage.getItem(STORAGE_KEY_SETTINGS);
-    if (saved) {
+
+    const raw = savedV6 || savedV5;
+    if (raw) {
       try {
-        const parsed = JSON.parse(saved);
+        const parsed = JSON.parse(raw);
         if (!parsed.apiKey || parsed.apiKey.trim().length === 0) {
           parsed.selectedModel = '';
-        } else if (parsed.selectedModel && parsed.selectedModel.includes('1.5')) {
+        } else if (isLegacyOrInvalidModel(parsed.selectedModel)) {
           parsed.selectedModel = '';
         }
         return parsed;
-      } catch (e) {
-        // fallback
+      } catch {
+        // fallback to defaults
       }
     }
     return {
@@ -57,9 +59,14 @@ export const App: React.FC = () => {
   });
 
   const [images, setImages] = useState<ProcessedImage[]>([]);
-  const [availableModels, setAvailableModels] = useState<GeminiModelInfo[]>(DEFAULT_GEMINI_MODELS);
+  const [availableModels, setAvailableModels] = useState<GeminiModelInfo[]>([]);
   const [isDetectingModel, setIsDetectingModel] = useState(false);
   const [discoveredModelName, setDiscoveredModelName] = useState(settings.selectedModel || '');
+
+  // Live refs to avoid stale React closures during sequential batch extraction
+  const activeModelRef = useRef<string>(settings.selectedModel || '');
+  const liveModelsRef = useRef<string[]>([]);
+  const imagesRef = useRef<ProcessedImage[]>([]);
 
   const [isProcessingBatch, setIsProcessingBatch] = useState(false);
   const [selectedImageForResult, setSelectedImageForResult] = useState<ProcessedImage | null>(null);
@@ -70,6 +77,14 @@ export const App: React.FC = () => {
 
   const abortControllerRef = useRef<boolean>(false);
   const t = translations[settings.language];
+
+  useEffect(() => {
+    imagesRef.current = images;
+  }, [images]);
+
+  useEffect(() => {
+    activeModelRef.current = settings.selectedModel || '';
+  }, [settings.selectedModel]);
 
   // Persist settings & sync theme/dir
   useEffect(() => {
@@ -113,7 +128,7 @@ export const App: React.FC = () => {
               reader.onload = () => res(reader.result as string);
             });
             return {
-              id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+              id: `${Date.now()}-${Math.random().toString(36).slice(2, 11)}`,
               file,
               name: `clipboard_capture_${new Date().toISOString().slice(11, 19).replace(/:/g, '')}.png`,
               size: file.size,
@@ -143,15 +158,17 @@ export const App: React.FC = () => {
     try {
       const res = await discoverLatestGeminiModels(apiKey);
       setAvailableModels(res.models);
+      liveModelsRef.current = res.models.map((m) => m.name);
 
-      // Preserve previously verified/working model if still valid in Google's live catalog
+      // Preserve previously verified working model if still valid in Google's live catalog
       setSettings((prev) => {
         const isCurrentModelValid = Boolean(
           prev.selectedModel &&
-          !prev.selectedModel.includes('1.5') &&
-          res.models.some((m) => m.name === prev.selectedModel)
+            !isLegacyOrInvalidModel(prev.selectedModel) &&
+            res.models.some((m) => m.name === prev.selectedModel)
         );
         const modelToUse = isCurrentModelValid ? prev.selectedModel : res.recommendedModel;
+        activeModelRef.current = modelToUse;
         setDiscoveredModelName(modelToUse);
         return {
           ...prev,
@@ -170,9 +187,18 @@ export const App: React.FC = () => {
       const next = { ...prev, ...newPartial };
       if (newPartial.apiKey !== undefined && newPartial.apiKey.trim().length === 0) {
         next.selectedModel = '';
+        activeModelRef.current = '';
+        liveModelsRef.current = [];
         setDiscoveredModelName('');
-      } else if (newPartial.apiKey !== undefined && newPartial.apiKey !== prev.apiKey && newPartial.apiKey.trim().length > 10) {
+      } else if (
+        newPartial.apiKey !== undefined &&
+        newPartial.apiKey !== prev.apiKey &&
+        newPartial.apiKey.trim().length > 10
+      ) {
         performAutoDiscovery(newPartial.apiKey);
+      }
+      if (newPartial.selectedModel !== undefined) {
+        activeModelRef.current = newPartial.selectedModel;
       }
       return next;
     });
@@ -216,12 +242,11 @@ export const App: React.FC = () => {
     );
   };
 
-  // Process a single image strictly through the live Google Gemini API (no simulated output)
+  // Process a single image strictly through the live Google Gemini API
   const processSingleImage = async (imgId: string): Promise<boolean> => {
-    const currentImg = images.find((i) => i.id === imgId);
+    const currentImg = imagesRef.current.find((i) => i.id === imgId) || images.find((i) => i.id === imgId);
     if (!currentImg) return false;
 
-    // No API key: never fabricate results. Ask the user to connect a real key.
     if (!settings.apiKey || settings.apiKey.trim().length === 0) {
       setImages((prev) =>
         prev.map((i) =>
@@ -240,16 +265,20 @@ export const App: React.FC = () => {
 
     try {
       // Resolve the model live from Google if none is bound yet
-      let modelToUse = settings.selectedModel || discoveredModelName;
-      if (!modelToUse) {
+      let modelToUse = activeModelRef.current || settings.selectedModel || discoveredModelName;
+      if (!modelToUse || isLegacyOrInvalidModel(modelToUse) || liveModelsRef.current.length === 0) {
         try {
           const res = await discoverLatestGeminiModels(settings.apiKey);
-          modelToUse = res.recommendedModel;
           setAvailableModels(res.models);
-          setDiscoveredModelName(res.recommendedModel);
-          setSettings((prev) => ({ ...prev, selectedModel: res.recommendedModel }));
+          liveModelsRef.current = res.models.map((m) => m.name);
+          if (!modelToUse || isLegacyOrInvalidModel(modelToUse)) {
+            modelToUse = res.recommendedModel;
+            activeModelRef.current = modelToUse;
+            setDiscoveredModelName(modelToUse);
+            setSettings((prev) => ({ ...prev, selectedModel: modelToUse }));
+          }
         } catch {
-          modelToUse = 'gemini-3.8-flash';
+          modelToUse = DEFAULT_GEMINI_MODELS[0].name;
         }
       }
 
@@ -266,14 +295,15 @@ export const App: React.FC = () => {
           extractEmojis: settings.extractEmojis,
           temperature: settings.temperature
         },
-        availableModels.map((m) => m.name)
+        liveModelsRef.current
       );
 
       const elapsed = Math.round(performance.now() - startTime);
       const stats = analyzeExtractedText(result.text, elapsed);
 
-      // Keep the displayed model truthful: bind whichever model actually answered
-      if (result.modelUsed && result.modelUsed !== settings.selectedModel) {
+      // Keep the displayed model truthful: immediately bind whichever live model answered
+      if (result.modelUsed && result.modelUsed !== activeModelRef.current) {
+        activeModelRef.current = result.modelUsed;
         setDiscoveredModelName(result.modelUsed);
         setSettings((prev) => ({ ...prev, selectedModel: result.modelUsed }));
       }
@@ -282,11 +312,11 @@ export const App: React.FC = () => {
         prev.map((i) =>
           i.id === imgId
             ? {
-              ...i,
-              status: 'completed',
-              extractedText: result.text,
-              stats
-            }
+                ...i,
+                status: 'completed',
+                extractedText: result.text,
+                stats
+              }
             : i
         )
       );
@@ -307,11 +337,11 @@ export const App: React.FC = () => {
         prev.map((i) =>
           i.id === imgId
             ? {
-              ...i,
-              status: 'error',
-              errorMsg: isQuota ? t.quotaExceededWarning : (err.message || 'Extraction failed'),
-              stats: analyzeExtractedText('', elapsed)
-            }
+                ...i,
+                status: 'error',
+                errorMsg: isQuota ? t.quotaExceededWarning : err.message || 'Extraction failed',
+                stats: analyzeExtractedText('', elapsed)
+              }
             : i
         )
       );
@@ -355,7 +385,7 @@ export const App: React.FC = () => {
         discoveredModelName={discoveredModelName}
       />
 
-      {/* Floating Quota Alert Toast - Modern Non-Intrusive Bottom Placement */}
+      {/* Floating Quota Alert Toast - Non-Intrusive Bottom Placement */}
       {quotaAlert && (
         <div className="fixed bottom-6 right-6 rtl:right-auto rtl:left-6 z-50 max-w-sm sm:max-w-md w-[calc(100%-2rem)] sm:w-auto animate-fade-in">
           <div className="p-4 rounded-2xl bg-slate-900/95 dark:bg-slate-950/95 border border-amber-500/40 shadow-2xl backdrop-blur-xl flex items-start gap-3.5 text-slate-100 shadow-[0_10px_40px_-10px_rgba(245,158,11,0.3)]">
@@ -495,6 +525,8 @@ export const App: React.FC = () => {
         onUpdateSettings={updateSettings}
         onRefreshModels={(models, recommended) => {
           setAvailableModels(models);
+          liveModelsRef.current = models.map((m) => m.name);
+          activeModelRef.current = recommended;
           setDiscoveredModelName(recommended);
         }}
       />
