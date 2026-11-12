@@ -1,4 +1,4 @@
-name: Deploy OmniScribe AI to GitHub Pages
+name: Deploy OmniScribe to GitHub Pages
 
 on:
   push:
